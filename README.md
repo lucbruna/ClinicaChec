@@ -14,7 +14,7 @@
 [![API Docs Freshness Checks](https://github.com/openemr/openemr/actions/workflows/api-docs.yml/badge.svg)](https://github.com/openemr/openemr/actions/workflows/api-docs.yml)
 [![codecov](https://codecov.io/gh/openemr/openemr/graph/badge.svg?token=7Eu3U1Ozdq)](https://codecov.io/gh/openemr/openemr)
 
-[![Backers on Open Collective](https://opencollective.com/openemr/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/openemr/sponsors/badge.svg)](#sponsors)
+
 
 # ClinicaChec
 
@@ -22,15 +22,11 @@ ClinicaChec é um sistema de prontuário eletrônico e gestão de clínicas base
 
 ### Suporte
 
-Documentação e suporte podem ser encontrados no site do [OpenEMR](https://open-emr.org).
+
 
 ### Reportando Problemas
 
-Reporte issues no [Issue Tracker](https://github.com/openemr/openemr/issues).
 
-### Reporting Issues and Bugs
-
-Report these on the [Issue Tracker](https://github.com/openemr/openemr/issues). If you are unsure if it is an issue/bug, then always feel free to use the [Forum](https://community.open-emr.org/) and [Chat](https://www.open-emr.org/chat/) to discuss about the issue 🪲.
 
 ### Reporting Security Vulnerabilities
 
@@ -59,17 +55,4 @@ npm run build
 composer dump-autoload -o
 ```
 
-### Contributors
 
-This project exists thanks to all the people who have contributed. [[Contribute]](CONTRIBUTING.md).
-<a href="https://github.com/openemr/openemr/graphs/contributors"><img src="https://opencollective.com/openemr/contributors.svg?width=890" /></a>
-
-
-### Sponsors
-
-Thanks to our [ONC Certification Major Sponsors](https://www.open-emr.org/wiki/index.php/OpenEMR_Certification_Stage_III_Meaningful_Use#Major_sponsors)!
-
-
-### License
-
-[GNU GPL](LICENSE)
