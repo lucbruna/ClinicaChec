@@ -1,0 +1,16 @@
+gh repo clone openemr/openemr
+
+
+ Docker no ar
+http://localhost:8300/ — app rodando
+https://localhost:9300/ — versão SSL
+http://localhost:8310/ — phpMyAdmin
+Login: admin / pass
+4. Português brasileiro
+Idioma pt (Português Brasileiro) já disponível no dropdown de login
+Selecione no login para usar a interface em português
+Para acessar:
+1. Abra http://localhost:8300/
+2. Faça login com admin / pass
+3. Selecione Portuguese (Brazilian) no dropdown de idioma
+4. Vá em Administration → Language para gerenciar traduções adicionais
