@@ -27,8 +27,14 @@ class QrdaReportController
 
     public function __construct()
     {
-        $this->reportService = new QrdaReportService();
-        $this->reportMeasures = $this->reportService->fetchCurrentMeasures('active');
+        try {
+            $this->reportService = new QrdaReportService();
+            $this->reportMeasures = $this->reportService->fetchCurrentMeasures('active');
+        } catch (\Throwable $e) {
+            error_log('QRDA report service unavailable: ' . $e->getMessage());
+            $this->reportService = null;
+            $this->reportMeasures = [];
+        }
     }
 
     /**
@@ -39,6 +45,9 @@ class QrdaReportController
      */
     public function getCategoryIReport($pid, $measures, $type = 'xml', $options = [])
     {
+        if ($this->reportService === null) {
+            return '';
+        }
         // Handle different measure parameter types
         if ($measures === '' || $measures === null || (is_array($measures) && count($measures) === 0)) {
             $measures = $this->reportMeasures;

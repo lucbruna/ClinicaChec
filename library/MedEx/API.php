@@ -1899,8 +1899,8 @@ class Display extends Base
     <div class="container mt-3">
         <div class="row" id="rcb_selectors" style="display: <?php echo attr($rcb_selectors); ?>">
             <div class="col-12 text-center">
-                <h2><?php echo xlt('Recall Board'); ?></h2>
-                <p class="text-danger"><?php echo xlt('Persons needing a recall, no appt scheduled yet.'); ?></p>
+                <h2><?php echo xlt('Painel de Lembretes'); ?></h2>
+                <p class="text-danger"><?php echo xlt('Pacientes com lembrete pendente, sem consulta agendada.'); ?></p>
             </div>
             <div class="col-12 jumbotron p-4">
                 <div class="showRFlow text-center" id="show_recalls_params">
@@ -2528,7 +2528,7 @@ class Display extends Base
     private function recall_board_top(bool $has_recall = false)
     {
         if (!$has_recall) {
-            echo '<div id="no_recalls_message" class="alert alert-info text-center">' . xlt('No Recalls Found') . '</div>';
+            echo '<div id="no_recalls_message" class="alert alert-info text-center">' . xlt('Nenhum lembrete encontrado') . '</div>';
             return;
         }
 
@@ -2833,11 +2833,11 @@ class Display extends Base
             var xljs_PthsApSched = '<?php echo xl("This patient already has an appointment scheduled for"); ?>';
 
             var translations = {
-                patient_required: <?php echo xlj('Please select a patient'); ?>,
-                date_required: <?php echo xlj('Please select a recall date'); ?>,
-                provider_required: <?php echo xlj('Please select a provider'); ?>,
-                facility_required: <?php echo xlj('Please select a facility'); ?>,
-                no_recalls_found: <?php echo xlj('No Recalls Found'); ?>
+                patient_required: <?php echo xlj('Selecione um paciente'); ?>,
+                date_required: <?php echo xlj('Selecione uma data para o lembrete'); ?>,
+                provider_required: <?php echo xlj('Selecione um profissional'); ?>,
+                facility_required: <?php echo xlj('Selecione uma unidade'); ?>,
+                no_recalls_found: <?php echo xlj('Nenhum lembrete encontrado'); ?>
             };
 
 

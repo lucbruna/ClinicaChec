@@ -28,11 +28,6 @@
             <input type="hidden" name="csrf_token_form" value="{{ csrfToken|attr }}" />
             {% if not mfaRequired %}
 
-            {% if enforce_signin_email %}
-            <div class="form-group">
-                <input class="form-control" placeholder="{{ "Email if required"|xla  }}" type="email" name="email">
-            </div>
-            {% endif %}
             <div class="form-group">
                 <input class="form-control" placeholder="{{ "Registered username"|xla  }}" type="text" name="username" value="">
             </div>
@@ -71,11 +66,6 @@
                 </div>
                 {% endif %}
 
-                {% if enforce_signin_email %}
-                <div class="form-group">
-                    <input class="form-control" type="hidden" value="{{ user.email|attr }}">
-                </div>
-                {% endif %}
                 <div class="form-group">
                     <input class="form-control" type="hidden" name="username" value="{{ user.username|attr }}">
                 </div>

@@ -55,6 +55,11 @@ $allowRegisterDialog = $product_row['allowRegisterDialog'] ?? false;
 $allowTelemetry = $product_row['allowTelemetry'] ?? null; // for dialog
 $allowEmail = $product_row['allowEmail'] ?? null; // for dialog
 
+// ClinicaChec: disable product registration / telemetry dialog
+$allowRegisterDialog = false;
+$allowTelemetry = null;
+$allowEmail = null;
+
 // Check if telemetry is disabled via environment variable
 $disableTelemetry = OEEnvBag::getInstance()->getBoolean(ENV_DISABLE_TELEMETRY);
 // Check if background service piggybacking is disabled via environment variable
@@ -441,6 +446,7 @@ $twig = (new TwigContainer(null, OEGlobalsBag::getInstance()->getKernel()))->get
             . ',' . json_encode($userQuery['lname'])
             . ',' . json_encode($session->get('authProvider')); ?>));
     </script>
+    <link rel="stylesheet" href="<?php echo OEGlobalsBag::getInstance()->getWebRoot(); ?>/public/themes/clinicachec-modern.css?v=<?php echo OEGlobalsBag::getInstance()->getString('v_js_includes'); ?>">
     <style>
       html,
       body {
@@ -486,8 +492,8 @@ $twig = (new TwigContainer(null, OEGlobalsBag::getInstance()->getKernel()))->get
         <nav class="navbar navbar-expand-xl navbar-light bg-light py-0">
             <?php if (OEGlobalsBag::getInstance()->getBoolean('display_main_menu_logo')) {
                 $bag = OEGlobalsBag::getInstance();
-                $logoLinkDefault = 'https://www.open-emr.org/';
-                $logoTitleDefault = xl('ClinicaChec Website');
+                $logoLinkDefault = 'https://github.com/lucbruna/ClinicaChec';
+                $logoTitleDefault = xl('ClinicaChec no GitHub');
                 $logoLink = trim($bag->getString('main_menu_logo_link', $logoLinkDefault));
                 $logoTitle = trim($bag->getString('main_menu_logo_title', $logoTitleDefault));
                 $logoImg = '<img src="' . attr($menuLogo) . '" class="d-inline-block align-middle" height="16" alt="' . xla('Main Menu Logo') . '">';

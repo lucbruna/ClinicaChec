@@ -99,12 +99,18 @@ class EncountermanagerController extends AbstractActionController
         $downloadqrda3 = $request->getPost('downloadqrda3') ?: $request->getQuery()->downloadqrda3;
         $downloadqrda3_consolidated = $request->getPost('downloadqrda3_consolidated') ?: $request->getQuery()->downloadqrda3_consolidated;
         $latest_ccda = $request->getPost('latestccda') ?: $this->getRequest()->getQuery('latest_ccda');
-        $reportController = new QrdaReportController();
-        $reportService = new QrdaReportService();
-        $measures = $reportController->reportMeasures;
-        $m_resolved = $reportService->resolveMeasuresPath($measures);
-        foreach ($m_resolved as $k => $m) {
-            $measures[$k]['measure_path'] = $m;
+        try {
+            $reportController = new QrdaReportController();
+            $reportService = new QrdaReportService();
+            $measures = $reportController->reportMeasures;
+            $m_resolved = $reportService->resolveMeasuresPath($measures);
+            foreach ($m_resolved as $k => $m) {
+                $measures[$k]['measure_path'] = $m;
+            }
+        } catch (\Throwable $e) {
+            error_log('QRDA service unavailable in EncountermanagerController: ' . $e->getMessage());
+            $reportController = null;
+            $measures = [];
         }
         if (
             ($downloadccda == 'download_ccda')

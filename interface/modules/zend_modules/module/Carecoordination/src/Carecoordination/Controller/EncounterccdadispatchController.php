@@ -116,68 +116,94 @@ class EncounterccdadispatchController extends AbstractActionController
             'filter_content' => $filter_content
         ];
 
-        // QRDA I user view html version
-        if ($this->getRequest()->getQuery('doctype') === 'qrda') {
-            $xmlController = new QrdaReportController();
-            $document = $xmlController->getCategoryIReport($combination, '', 'html');
-            echo $document;
-            exit;
-        }
-
         $session = SessionWrapperFactory::getInstance()->getActiveSession();
         $authUser = $session->get('authUser');
         $authProvider = $session->get('authProvider');
+
+        // QRDA I user view html version
+        if ($this->getRequest()->getQuery('doctype') === 'qrda') {
+            try {
+                $xmlController = new QrdaReportController();
+                $document = $xmlController->getCategoryIReport($combination, '', 'html');
+                echo $document;
+            } catch (\Throwable $e) {
+                error_log("QRDA report unavailable: " . $e->getMessage());
+                echo xlt("QRDA report service is not available.");
+            }
+            exit;
+        }
+
         // QRDA III user view html version
         if ($this->getRequest()->getQuery('doctype') === 'qrda3') {
-            $xmlController = new QrdaReportController();
-            $document = $xmlController->getCategoryIIIReport($combination, '');
-            echo $document;
-            EventAuditLogger::getInstance()->newEvent("qrda3-export", $authUser, $authProvider, 1, "QRDA3 view");
+            try {
+                $xmlController = new QrdaReportController();
+                $document = $xmlController->getCategoryIIIReport($combination, '');
+                echo $document;
+                EventAuditLogger::getInstance()->newEvent("qrda3-export", $authUser, $authProvider, 1, "QRDA3 view");
+            } catch (\Throwable $e) {
+                error_log("QRDA III report unavailable: " . $e->getMessage());
+                echo xlt("QRDA report service is not available.");
+            }
             exit;
         }
 
         // QRDA III Consolidated user view
         if ($this->getRequest()->getQuery('doctype') === 'qrda3_consolidated') {
-            $xmlController = new QrdaReportController();
-            $document = $xmlController->getConsolidatedCategoryIIIReport($combination, '');
+            try {
+                $xmlController = new QrdaReportController();
+                $document = $xmlController->getConsolidatedCategoryIIIReport($combination, '');
 
-            // For HTML view, you could add XSL transformation here if needed
-            echo $document;
-            EventAuditLogger::getInstance()->newEvent("qrda3-consolidated-export", $authUser, $authProvider, 1, "QRDA3 Consolidated view");
+                // For HTML view, you could add XSL transformation here if needed
+                echo $document;
+                EventAuditLogger::getInstance()->newEvent("qrda3-consolidated-export", $authUser, $authProvider, 1, "QRDA3 Consolidated view");
+            } catch (\Throwable $e) {
+                error_log("QRDA III consolidated report unavailable: " . $e->getMessage());
+                echo xlt("QRDA report service is not available.");
+            }
             exit;
         }
 
         // QRDA I batch selected pids download as zip.
         if ($downloadqrda === 'download_qrda') {
-            $xmlController = new QrdaReportController();
-            $combination = $this->params('pids');
-            $pids = explode('|', (string) $combination);
-            $measures = $_REQUEST['report_measures'] ?? "";
-            if (is_array($measures)) {
-                if (empty($measures[0])) {
-                    $measures = ''; // defaults to all current one per patient.
-                } elseif (($measures[0] ?? null) == 'all') {
-                    $measures = 'all'; // defaults to all current measures per patient.
+            try {
+                $xmlController = new QrdaReportController();
+                $combination = $this->params('pids');
+                $pids = explode('|', (string) $combination);
+                $measures = $_REQUEST['report_measures'] ?? "";
+                if (is_array($measures)) {
+                    if (empty($measures[0])) {
+                        $measures = ''; // defaults to all current one per patient.
+                    } elseif (($measures[0] ?? null) == 'all') {
+                        $measures = 'all'; // defaults to all current measures per patient.
+                    }
                 }
+                $xmlController->downloadQrdaIAsZip($pids, $measures, 'xml');
+            } catch (\Throwable $e) {
+                error_log("QRDA I download unavailable: " . $e->getMessage());
+                echo xlt("QRDA report service is not available.");
             }
-            $xmlController->downloadQrdaIAsZip($pids, $measures, 'xml');
             exit;
         }
 
         // QRDA III batch selected pids download as zip (individual files per measure).
         if ($downloadqrda3 === 'download_qrda3') {
-            $xmlController = new QrdaReportController();
-            $combination = $this->params('pids');
-            $pids = explode('|', (string) $combination);
-            $measures = $_REQUEST['report_measures_cat3'] ?? "";
-            if (is_array($measures)) {
-                if (empty($measures[0])) {
-                    $measures = ''; // defaults to all current measures
-                } elseif (($measures[0] ?? null) == 'all') {
-                    $measures = 'all'; // defaults to all current measures
+            try {
+                $xmlController = new QrdaReportController();
+                $combination = $this->params('pids');
+                $pids = explode('|', (string) $combination);
+                $measures = $_REQUEST['report_measures_cat3'] ?? "";
+                if (is_array($measures)) {
+                    if (empty($measures[0])) {
+                        $measures = ''; // defaults to all current measures
+                    } elseif (($measures[0] ?? null) == 'all') {
+                        $measures = 'all'; // defaults to all current measures
+                    }
                 }
+                $xmlController->downloadQrdaIII($pids, $measures);
+            } catch (\Throwable $e) {
+                error_log("QRDA III download unavailable: " . $e->getMessage());
+                echo xlt("QRDA report service is not available.");
             }
-            $xmlController->downloadQrdaIII($pids, $measures);
             exit;
         }
 

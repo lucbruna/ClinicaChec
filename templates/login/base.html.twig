@@ -35,6 +35,7 @@ and semantic choices
             background-color: var(--light);
         }
     </style>
+    <link rel="stylesheet" href="{{ webroot }}/public/themes/clinicachec-modern.css?v={{ assetVersion|default('1')|attr_url }}">
     {% endblock %}
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -49,7 +50,7 @@ and semantic choices
         });
     </script>
 </head>
-<body>
+<body class="login-page">
 
 {% block pre_content %}{% endblock %}
 

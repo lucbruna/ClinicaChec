@@ -572,7 +572,7 @@ $GLOBALS_METADATA = [
         'login_tagline_text' => [
             xl('Login Page Tagline') . "*",
             'text',
-            xl("The most popular open-source Electronic Health Record and Medical Practice Management solution."),
+            xl("ClinicaChec — Sistema moderno de gestão em saúde."),
             xl("Tagline text on the login page")
         ],
 

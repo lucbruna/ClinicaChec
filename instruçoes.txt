@@ -1,5 +1,12 @@
 gh repo clone openemr/openemr
+login admin/pass
 
+🔗 GitHub: https://github.com/lucbruna/ClinicaChec
+🌐 App local: http://localhost:8300/ (login: admin / pass)
+🗣️ Idioma: Selecione "Portuguese (Brazilian)" no login
+🐘 phpMyAdmin: http://localhost:8310/
+Para parar os containers: docker compose down (na pasta docker/development-easy/)
+Para subir de novo: docker compose up -d
 
  Docker no ar
 http://localhost:8300/ — app rodando
@@ -14,3 +21,8 @@ Para acessar:
 2. Faça login com admin / pass
 3. Selecione Portuguese (Brazilian) no dropdown de idioma
 4. Vá em Administration → Language para gerenciar traduções adicionais
+
+composer install --no-dev
+npm install
+npm run build
+composer dump-autoload -o
