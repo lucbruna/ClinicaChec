@@ -47,11 +47,15 @@ jobs:
         EOF
 
     - name: Run migrations
-      run: ./cli migrations:migrate --no-interaction
+      run: |
+        chmod +x cli
+        ./cli migrations:migrate --no-interaction
       env:
         ENVIRONMENT: test
     - name: Verify status
-      run: ./cli migrations:status
+      run: |
+        chmod +x cli
+        ./cli migrations:status
       env:
         ENVIRONMENT: test
 
